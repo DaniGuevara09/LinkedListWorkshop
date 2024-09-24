@@ -1,5 +1,25 @@
 .button {
-    -fx-background-color: #E83131;
-    -fx-text-fill: BLACK;
+    /*-fx-background-color: #E83131;*/
+    -fx-background-color: #B52626;
+
+    -fx-text-fill: white;
     -fx-font-size: 20px;
+    -fx-pref-width: 120px;
+    -fx-pref-height: 40px;
+    -fx-background-radius: 15px;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+#title {
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+#root {
+    -fx-background-color: #0F0F0F;
 }
