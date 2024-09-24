@@ -1,7 +1,6 @@
 .button {
-    /*-fx-background-color: #E83131;*/
     -fx-background-color: #B52626;
-
+    -fx-cursor: hand;
     -fx-text-fill: white;
     -fx-font-size: 20px;
     -fx-pref-width: 120px;
@@ -18,6 +17,12 @@
     -fx-text-fill: white;
     -fx-font-size: 30px;
     -fx-font-weight: bold;
+}
+
+#subtitle {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-style: italic;
 }
 
 #root {
