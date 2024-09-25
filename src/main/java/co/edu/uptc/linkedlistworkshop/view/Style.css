@@ -3,7 +3,7 @@
     -fx-cursor: hand;
     -fx-text-fill: white;
     -fx-font-size: 20px;
-    -fx-pref-width: 120px;
+    -fx-pref-width: 200px;
     -fx-pref-height: 40px;
     -fx-background-radius: 15px;
 }
@@ -19,12 +19,28 @@
     -fx-font-weight: bold;
 }
 
-#subtitle {
+#sortBy {
     -fx-text-fill: white;
     -fx-font-size: 20px;
     -fx-font-style: italic;
+    -fx-pref-height: 38px;
 }
 
 #root {
     -fx-background-color: #0F0F0F;
+}
+
+.combo-box {
+    -fx-font-size: 20px;
+    -fx-font-style: italic;
+    -fx-background-color: #0F0F0F;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: #0F0F0F;
+}
+
+.combo-box .arrow {
+    -fx-background-color: white;
 }

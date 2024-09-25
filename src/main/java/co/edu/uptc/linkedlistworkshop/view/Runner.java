@@ -2,89 +2,116 @@ package co.edu.uptc.linkedlistworkshop.view;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.*;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Runner extends Application {
 
     private Label title;
-    private Label subtitle;
+    private Label sortBy;
+    private ComboBox<String> sortComboBox;
+    private TableView tableView;
+    private Button addButton;
 
-    private Label createLabel;
-    private Label readLabel;
-    private Label updateLabel;
-    private Label deleteLabel;
-
-    private Button createBut;
-    private Button readBut;
-    private Button updateBut;
-    private Button deleteBut;
-    private Button exit;
-
-    private VBox root;
-    private GridPane grid;
+    private BorderPane root;
+    private HBox sortHBox;
+    private VBox top;
     private Scene scene;
+
+    private ComboBox<String> brandComboBox;
+    private ComboBox<Integer> yearComboBox;
+
+    private static double screenWidth;
+    private static double screenHeight;
 
     public Runner() {
         title = new Label("Motorcycle information management");
-        subtitle = new Label("Select an option");
-        createLabel = new Label("1. Create a new moto");
-        readLabel = new Label("2. View all motos");
-        updateLabel = new Label("3. Update moto information");
-        deleteLabel = new Label("4. Delete moto");
-        createBut = new Button("Create");
-        readBut = new Button("Read");
-        updateBut = new Button("Update");
-        deleteBut = new Button("Delete");
-        exit = new Button("Exit");
-        root = new VBox();
-        grid = new GridPane();
-        scene = new Scene(root, 800, 800);
+        sortBy = new Label("Sort by ");
+        sortComboBox = new ComboBox<>();
+        tableView = new TableView();
+        addButton = new Button("Add New Moto");
+
+        root = new BorderPane();
+        sortHBox = new HBox();
+        top = new VBox();
+        brandComboBox = new ComboBox<>();
+        yearComboBox = new ComboBox<>();
+        screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
+        screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
+        scene = new Scene(root, screenWidth, screenHeight);
     }
 
     @Override
     public void start(Stage stage) throws IOException {
+        scene.getStylesheets()
+                .add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString());
+
         events();
-        scene.getStylesheets().add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString());
+        combo();
 
-        // Column, row
-        grid.add(createLabel, 0, 0);
-        grid.add(readLabel, 0, 1);
-        grid.add(updateLabel, 0, 2);
-        grid.add(deleteLabel, 0, 3);
-        grid.add(createBut, 1, 0);
-        grid.add(readBut, 1, 1);
-        grid.add(updateBut, 1, 2);
-        grid.add(deleteBut, 1, 3);
-
+        sortHBox.getChildren().addAll(sortBy, sortComboBox);
         title.setId("title");
-        subtitle.setId("subtitle");
+        sortBy.setId("sortBy");
         root.setId("root");
 
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(50);
-        grid.setVgap(50);
+        top.getChildren().addAll(title, sortHBox);
 
-        root.getChildren().addAll(title, subtitle, grid, exit);
-        root.setAlignment(Pos.CENTER);
-        root.setSpacing(55);
+        root.setTop(top);
+        root.setCenter(tableView);
+        root.setBottom(addButton);
+
+        // Up, right, down, left
+        VBox.setMargin(sortHBox, new Insets(30, 0, 0, 0));
+        BorderPane.setMargin(top, new Insets(30, 30, 30, 30));
+        BorderPane.setMargin(tableView, new Insets(0, 30, 30, 30));
+        BorderPane.setMargin(addButton, new Insets(0, 0, 30, 30));
 
         stage.setTitle("Motos");
         stage.setScene(scene);
         stage.show();
     }
 
-    public void events(){
-        exit.setOnAction(event -> {
-            Platform.exit();
-        });
+    public void events() {
+
+    }
+
+    public void combo(){
+        // Srot
+        sortComboBox.getItems().addAll("minor to major", "major to minor");
+        sortComboBox.setValue("minor to major");
+
+        // Brand
+        ArrayList<String> brand = new ArrayList<>();
+        brand.add("BMW");
+        brand.add("Ducati");
+        brand.add("Honda");
+        brand.add("Kawasaki");
+        brand.add("KTM");
+        brand.add("Suzuki");
+        brand.add("Yamaha");
+
+        for (String b : brand) {
+            brandComboBox.getItems().add(b);
+        }
+
+        // Year
+        int currentYear = LocalDate.now().getYear();
+
+        for (int year = 2014; year <= currentYear; year++) {
+            yearComboBox.getItems().add(year);
+        }
     }
 
     public static void main(String[] args) {
