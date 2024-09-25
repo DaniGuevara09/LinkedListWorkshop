@@ -1,9 +1,7 @@
 package co.edu.uptc.linkedlistworkshop.view;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -19,6 +17,7 @@ import java.util.ArrayList;
 
 public class Runner extends Application {
 
+    private Stage primaryStage;
     private Label title;
     private Label sortBy;
     private ComboBox<String> sortComboBox;
@@ -30,24 +29,19 @@ public class Runner extends Application {
     private VBox top;
     private Scene scene;
 
-    private ComboBox<String> brandComboBox;
-    private ComboBox<Integer> yearComboBox;
-
     private static double screenWidth;
     private static double screenHeight;
 
     public Runner() {
-        title = new Label("Motorcycle information management");
+        primaryStage = new Stage();
+        title = new Label("Motorcycle Information Management");
         sortBy = new Label("Sort by ");
         sortComboBox = new ComboBox<>();
         tableView = new TableView();
         addButton = new Button("Add New Moto");
-
         root = new BorderPane();
         sortHBox = new HBox();
         top = new VBox();
-        brandComboBox = new ComboBox<>();
-        yearComboBox = new ComboBox<>();
         screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
         screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
         scene = new Scene(root, screenWidth, screenHeight);
@@ -59,7 +53,10 @@ public class Runner extends Application {
                 .add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString());
 
         events();
-        combo();
+
+        // Srot
+        sortComboBox.getItems().addAll("minor to major", "major to minor");
+        sortComboBox.setValue("minor to major");
 
         sortHBox.getChildren().addAll(sortBy, sortComboBox);
         title.setId("title");
@@ -78,40 +75,26 @@ public class Runner extends Application {
         BorderPane.setMargin(tableView, new Insets(0, 30, 30, 30));
         BorderPane.setMargin(addButton, new Insets(0, 0, 30, 30));
 
-        stage.setTitle("Motos");
-        stage.setScene(scene);
-        stage.show();
+        primaryStage.setTitle("Motos");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public void events() {
-
+        addButton.setOnAction(event -> {
+            NewMoto newMoto = new NewMoto();
+            newMoto.setPrevScene(scene);
+            newMoto.setPrevStage(primaryStage);
+            primaryStage.setScene(newMoto.getScene());
+        });
     }
 
-    public void combo(){
-        // Srot
-        sortComboBox.getItems().addAll("minor to major", "major to minor");
-        sortComboBox.setValue("minor to major");
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
 
-        // Brand
-        ArrayList<String> brand = new ArrayList<>();
-        brand.add("BMW");
-        brand.add("Ducati");
-        brand.add("Honda");
-        brand.add("Kawasaki");
-        brand.add("KTM");
-        brand.add("Suzuki");
-        brand.add("Yamaha");
-
-        for (String b : brand) {
-            brandComboBox.getItems().add(b);
-        }
-
-        // Year
-        int currentYear = LocalDate.now().getYear();
-
-        for (int year = 2014; year <= currentYear; year++) {
-            yearComboBox.getItems().add(year);
-        }
+    public void setScene(Scene scene) {
+        this.scene = scene;
     }
 
     public static void main(String[] args) {
