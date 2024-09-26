@@ -13,7 +13,8 @@ public class Moto {
     private int engineSize;
     private double price;
 
-    public Moto(String brand, String model, String color, int year, int engineSize, double price) {
+    public Moto(int id, String brand, String model, String color, int year, int engineSize, double price) {
+        this.id = id;
         this.brand = brand;
         this.model = model;
         this.color = color;

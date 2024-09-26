@@ -1,87 +1,145 @@
 package co.edu.uptc.linkedlistworkshop.view;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Runner extends Application {
 
     private Stage primaryStage;
-    private Label title;
-    private Label sortBy;
-    private ComboBox<String> sortComboBox;
-    private TableView tableView;
-    private Button addButton;
-
-    private BorderPane root;
-    private HBox sortHBox;
-    private VBox top;
     private Scene scene;
+    private VBox root;
+    private GridPane grid;
+
+    private Label title;
+    private Label subtitle;
+
+    private Label addFirstLab;
+    private Label addLastLab;
+    private Label afterToLab;
+    private Label beforeToLab;
+    private Label sortLab;
+    private Label findInfoLab;
+    private Label getListLab;
+    private Label deleteLab;
+    private Label sizeLab;
+    private Label getObjectLab;
+    private Label getFirstLab;
+    private Label getLastLab;
+
+    private Button addFirstBtn;
+    private Button addLastBtn;
+    private Button afterToBtn;
+    private Button beforeToBtn;
+    private Button sortBtn;
+    private Button findInfoBtn;
+    private Button getListBtn;
+    private Button deleteBtn;
+    private Button sizeBtn;
+    private Button getObjectBtn;
+    private Button getFirstBtn;
+    private Button getLastBtn;
 
     private static double screenWidth;
     private static double screenHeight;
 
     public Runner() {
-        primaryStage = new Stage();
-        title = new Label("Motorcycle Information Management");
-        sortBy = new Label("Sort by ");
-        sortComboBox = new ComboBox<>();
-        tableView = new TableView();
-        addButton = new Button("Add New Moto");
-        root = new BorderPane();
-        sortHBox = new HBox();
-        top = new VBox();
         screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
         screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
+
+        primaryStage = new Stage();
+        root = new VBox();
+        grid = new GridPane();
         scene = new Scene(root, screenWidth, screenHeight);
+
+        title = new Label("Motorcycle information management");
+        subtitle = new Label("Select an option");
+
+        addFirstLab = new Label("1. Add Motorcycle First");
+        addLastLab = new Label("2. Add Motorcycle Last");
+        afterToLab = new Label("3. Add Motorcycle After");
+        beforeToLab = new Label("4. Add Motorcycle Before");
+        sortLab = new Label("5. Add Motorcycle Sort");
+        findInfoLab = new Label("6. Find Motorcycle Info");
+        getListLab = new Label("7. Get Motorcycle List");
+        deleteLab = new Label("8. Delete Motorcycle");
+        sizeLab = new Label("9. Total Number of Motorcycles");
+        getObjectLab = new Label("10. Get Motorcycle");
+        getFirstLab = new Label("11. Get First Motorcycle");
+        getLastLab = new Label("12. Get Last Motorcycle");
+
+        addFirstBtn = new Button("Add First");
+        addLastBtn = new Button("Add Last");
+        afterToBtn = new Button("Add After");
+        beforeToBtn = new Button("Add Before");
+        sortBtn = new Button("Add Sort");
+        findInfoBtn = new Button("Find Info");
+        getListBtn = new Button("Get List");
+        deleteBtn = new Button("Delete");
+        sizeBtn = new Button("Size");
+        getObjectBtn = new Button("Get Motorcycle");
+        getFirstBtn = new Button("Get First");
+        getLastBtn = new Button("Get Last");
     }
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene.getStylesheets()
-                .add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString());
-
         events();
 
-        // Srot
-        sortComboBox.getItems().addAll("minor to major", "major to minor");
-        sortComboBox.setValue("minor to major");
+        scene.getStylesheets().add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString());
+        // Column, row
+        grid.add(addFirstBtn, 1, 0);
+        grid.add(addLastBtn, 1, 1);
+        grid.add(afterToBtn, 1, 2);
+        grid.add(beforeToBtn, 1, 3);
+        grid.add(sortBtn, 1, 4);
+        grid.add(findInfoBtn, 1, 5);
+        grid.add(getListBtn, 1, 6);
+        grid.add(deleteBtn, 1, 7);
+        grid.add(sizeBtn, 1, 8);
+        grid.add(getObjectBtn, 1, 9);
+        grid.add(getFirstBtn, 1, 10);
+        grid.add(getLastBtn, 1, 11);
 
-        sortHBox.getChildren().addAll(sortBy, sortComboBox);
+        grid.add(addFirstLab, 0, 0);
+        grid.add(addLastLab, 0, 1);
+        grid.add(afterToLab, 0, 2);
+        grid.add(beforeToLab, 0, 3);
+        grid.add(sortLab, 0, 4);
+        grid.add(findInfoLab, 0, 5);
+        grid.add(getListLab, 0, 6);
+        grid.add(deleteLab, 0, 7);
+        grid.add(sizeLab, 0, 8);
+        grid.add(getObjectLab, 0, 9);
+        grid.add(getFirstLab, 0, 10);
+        grid.add(getLastLab, 0, 11);
+
         title.setId("title");
-        sortBy.setId("sortBy");
+        subtitle.setId("subtitle");
         root.setId("root");
 
-        top.getChildren().addAll(title, sortHBox);
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(100);
+        grid.setVgap(20);
 
-        root.setTop(top);
-        root.setCenter(tableView);
-        root.setBottom(addButton);
+        root.getChildren().addAll(title, subtitle, grid);
+        root.setAlignment(Pos.CENTER);
+        root.setSpacing(55);
 
-        // Up, right, down, left
-        VBox.setMargin(sortHBox, new Insets(30, 0, 0, 0));
-        BorderPane.setMargin(top, new Insets(30, 30, 30, 30));
-        BorderPane.setMargin(tableView, new Insets(0, 30, 30, 30));
-        BorderPane.setMargin(addButton, new Insets(0, 0, 30, 30));
-
-        primaryStage.setTitle("Motos");
+        primaryStage.setTitle("Motorcycle Information Management");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     public void events() {
-        addButton.setOnAction(event -> {
+        getListBtn.setOnAction(event -> {
             NewMoto newMoto = new NewMoto();
             newMoto.setPrevScene(scene);
             newMoto.setPrevStage(primaryStage);
