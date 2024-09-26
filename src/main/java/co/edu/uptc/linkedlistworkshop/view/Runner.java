@@ -139,12 +139,25 @@ public class Runner extends Application {
     }
 
     public void events() {
+        addFirstBtn.setOnAction(e -> addMotoWindow(new NewMoto(), 1));
+        addLastBtn.setOnAction(e -> addMotoWindow(new NewMoto(), 2));
+        afterToBtn.setOnAction(e -> addMotoWindow(new NewMoto(), 3));
+        beforeToBtn.setOnAction(e -> addMotoWindow(new NewMoto(), 4));
+        sortBtn.setOnAction(e -> addMotoWindow(new NewMoto(), 5));
+
         getListBtn.setOnAction(event -> {
-            NewMoto newMoto = new NewMoto();
-            newMoto.setPrevScene(scene);
-            newMoto.setPrevStage(primaryStage);
-            primaryStage.setScene(newMoto.getScene());
+            List list = new List();
+            list.setPrevScene(scene);
+            list.setPrevStage(primaryStage);
+            primaryStage.setScene(list.getScene());
         });
+    }
+
+    public void addMotoWindow(NewMoto newMoto, int op){
+        newMoto.setMenuOption(op);
+        newMoto.setPrevScene(scene);
+        newMoto.setPrevStage(primaryStage);
+        primaryStage.setScene(newMoto.getScene());
     }
 
     public void setPrimaryStage(Stage primaryStage) {

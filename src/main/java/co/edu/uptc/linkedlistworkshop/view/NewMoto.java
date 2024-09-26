@@ -46,6 +46,8 @@ public class NewMoto {
 
     private GridPane gridPane;
 
+    private int menuOption;
+
     public NewMoto() {
         root = new BorderPane();
         screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
@@ -73,6 +75,7 @@ public class NewMoto {
         priceText = new TextField();
 
         gridPane = new GridPane();
+        menuOption = 0;
         scene();
     }
 
@@ -163,5 +166,13 @@ public class NewMoto {
 
     public void setPrevScene(Scene prevScene) {
         this.prevScene = prevScene;
+    }
+
+    public int getMenuOption() {
+        return menuOption;
+    }
+
+    public void setMenuOption(int menuOption) {
+        this.menuOption = menuOption;
     }
 }
