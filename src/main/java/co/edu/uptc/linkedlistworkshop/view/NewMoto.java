@@ -45,8 +45,8 @@ public class NewMoto {
     private TextField priceText;
 
     private GridPane gridPane;
-
     private int menuOption;
+    private int currentNodeId;
 
     public NewMoto() {
         root = new BorderPane();
@@ -54,7 +54,7 @@ public class NewMoto {
         screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
         scene = new Scene(root, screenWidth, screenHeight);
 
-        title = new Label("Add New Moto");
+        title = new Label();
         addButton = new Button("Add New Moto");
         returnButton = new Button("Return");
         buttons = new HBox();
@@ -75,7 +75,6 @@ public class NewMoto {
         priceText = new TextField();
 
         gridPane = new GridPane();
-        menuOption = 0;
         scene();
     }
 
@@ -156,6 +155,28 @@ public class NewMoto {
         });
     }
 
+    public void titleLabel(){
+        String text = "Add a New Motorcycle";
+        switch (menuOption){
+            case 1:
+                title.setText(text + " at the Beginning");
+                break;
+            case 2:
+                title.setText(text + " at the End");
+                break;
+            case 3:
+                title.setText(text + " After to No. " + currentNodeId);
+                break;
+            case 4:
+                title.setText(text + " Before to No. " + currentNodeId);
+                break;
+            case 5:
+                title.setText(text + " in an Ordered Manner");
+                break;
+            default:
+        }
+    }
+
     public Scene getScene() {
         return scene;
     }
@@ -174,5 +195,6 @@ public class NewMoto {
 
     public void setMenuOption(int menuOption) {
         this.menuOption = menuOption;
+        titleLabel();
     }
 }

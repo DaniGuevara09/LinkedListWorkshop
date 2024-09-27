@@ -176,10 +176,10 @@ public class Runner extends Application {
     }
 
     public void addMotoWindow(NewMoto newMoto, int op){
-        newMoto.setMenuOption(op);
         newMoto.setPrevScene(scene);
         newMoto.setPrevStage(primaryStage);
         primaryStage.setScene(newMoto.getScene());
+        newMoto.setMenuOption(op);
     }
 
     public void setPrimaryStage(Stage primaryStage) {
