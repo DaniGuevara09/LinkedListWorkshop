@@ -63,6 +63,7 @@
     -fx-text-fill: white;
     -fx-border-color: white;
     -fx-background-color: #0F0F0F;
+    -fx-highlight-fill: #333333;
 }
 
 .text-field:focused {
@@ -87,4 +88,16 @@
 
 #txtSearch:focused {
     -fx-border-color: #1C1C1C;
+}
+
+#txtSearch2 {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-background-color: #1C1C1C;
+    -fx-border-color: #1C1C1C;
+    -fx-highlight-fill: #333333;
+}
+
+#txtSearch2:focused {
+    -fx-border-color: #B52626;
 }

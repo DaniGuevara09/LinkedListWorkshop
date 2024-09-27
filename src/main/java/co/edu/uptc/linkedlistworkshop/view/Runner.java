@@ -44,6 +44,7 @@ public class Runner extends Application {
     private Button sizeBtn;
     private Button getFirstBtn;
     private Button getLastBtn;
+    private Button exit;
 
     private static double screenWidth;
     private static double screenHeight;
@@ -83,6 +84,7 @@ public class Runner extends Application {
         sizeBtn = new Button("Size");
         getFirstBtn = new Button("Get First");
         getLastBtn = new Button("Get Last");
+        exit = new Button("Exit");
     }
 
     @Override
@@ -123,7 +125,7 @@ public class Runner extends Application {
         grid.setHgap(100);
         grid.setVgap(20);
 
-        root.getChildren().addAll(title, subtitle, grid);
+        root.getChildren().addAll(title, subtitle, grid, exit);
         root.setAlignment(Pos.CENTER);
         root.setSpacing(55);
 
@@ -135,8 +137,8 @@ public class Runner extends Application {
     public void events() {
         addFirstBtn.setOnAction(e -> addMotoWindow(new NewMoto(), 1));
         addLastBtn.setOnAction(e -> addMotoWindow(new NewMoto(), 2));
-        afterToBtn.setOnAction(e -> addMotoWindow(new NewMoto(), 3));
-        beforeToBtn.setOnAction(e -> addMotoWindow(new NewMoto(), 4));
+        afterToBtn.setOnAction(e -> addAfterBefore(3));
+        beforeToBtn.setOnAction(e -> addAfterBefore(4));
         sortBtn.setOnAction(e -> addMotoWindow(new NewMoto(), 5));
 
         getListBtn.setOnAction(event -> {
@@ -173,6 +175,8 @@ public class Runner extends Application {
             Total total = new Total();
             total.scene(primaryStage);
         });
+
+        exit.setOnAction(event -> primaryStage.close());
     }
 
     public void addMotoWindow(NewMoto newMoto, int op){
@@ -180,6 +184,22 @@ public class Runner extends Application {
         newMoto.setPrevStage(primaryStage);
         primaryStage.setScene(newMoto.getScene());
         newMoto.setMenuOption(op);
+    }
+
+    public void addMotoWindow(NewMoto newMoto, int op, Stage stage, Scene scene){
+        primaryStage.close();
+        this.scene = scene;
+        primaryStage = stage;
+
+        newMoto.setPrevScene(scene);
+        newMoto.setPrevStage(primaryStage);
+        primaryStage.setScene(newMoto.getScene());
+        newMoto.setMenuOption(op);
+    }
+
+    public void addAfterBefore(int op){
+        AddAfterBefore add = new AddAfterBefore();
+        add.scene(primaryStage, scene, op);
     }
 
     public void setPrimaryStage(Stage primaryStage) {
