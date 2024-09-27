@@ -153,6 +153,26 @@ public class Runner extends Application {
             //search.setPrevStage(primaryStage);
             //primaryStage.setScene(search.getScene());
         });
+
+        deleteBtn.setOnAction(event -> {
+            Delete delete = new Delete();
+            delete.scene(primaryStage);
+        });
+
+        getFirstBtn.setOnAction(event -> {
+            GetFirst getFirst = new GetFirst();
+            getFirst.scene(primaryStage);
+        });
+
+        getLastBtn.setOnAction(event -> {
+            GetLast getLast = new GetLast();
+            getLast.scene(primaryStage);
+        });
+
+        sizeBtn.setOnAction(event -> {
+            Total total = new Total();
+            total.scene(primaryStage);
+        });
     }
 
     public void addMotoWindow(NewMoto newMoto, int op){
