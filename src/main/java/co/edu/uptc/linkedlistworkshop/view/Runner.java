@@ -30,7 +30,6 @@ public class Runner extends Application {
     private Label getListLab;
     private Label deleteLab;
     private Label sizeLab;
-    private Label getObjectLab;
     private Label getFirstLab;
     private Label getLastLab;
 
@@ -43,7 +42,6 @@ public class Runner extends Application {
     private Button getListBtn;
     private Button deleteBtn;
     private Button sizeBtn;
-    private Button getObjectBtn;
     private Button getFirstBtn;
     private Button getLastBtn;
 
@@ -67,24 +65,22 @@ public class Runner extends Application {
         afterToLab = new Label("3. Add Motorcycle After");
         beforeToLab = new Label("4. Add Motorcycle Before");
         sortLab = new Label("5. Add Motorcycle Sort");
-        findInfoLab = new Label("6. Find Motorcycle Info");
+        findInfoLab = new Label("6. Search Motorcycle");
         getListLab = new Label("7. Get Motorcycle List");
         deleteLab = new Label("8. Delete Motorcycle");
         sizeLab = new Label("9. Total Number of Motorcycles");
-        getObjectLab = new Label("10. Get Motorcycle");
-        getFirstLab = new Label("11. Get First Motorcycle");
-        getLastLab = new Label("12. Get Last Motorcycle");
+        getFirstLab = new Label("10. Get First Motorcycle");
+        getLastLab = new Label("11. Get Last Motorcycle");
 
         addFirstBtn = new Button("Add First");
         addLastBtn = new Button("Add Last");
         afterToBtn = new Button("Add After");
         beforeToBtn = new Button("Add Before");
         sortBtn = new Button("Add Sort");
-        findInfoBtn = new Button("Find Info");
+        findInfoBtn = new Button("Search Moto");
         getListBtn = new Button("Get List");
         deleteBtn = new Button("Delete");
         sizeBtn = new Button("Size");
-        getObjectBtn = new Button("Get Motorcycle");
         getFirstBtn = new Button("Get First");
         getLastBtn = new Button("Get Last");
     }
@@ -104,9 +100,8 @@ public class Runner extends Application {
         grid.add(getListBtn, 1, 6);
         grid.add(deleteBtn, 1, 7);
         grid.add(sizeBtn, 1, 8);
-        grid.add(getObjectBtn, 1, 9);
-        grid.add(getFirstBtn, 1, 10);
-        grid.add(getLastBtn, 1, 11);
+        grid.add(getFirstBtn, 1, 9);
+        grid.add(getLastBtn, 1, 10);
 
         grid.add(addFirstLab, 0, 0);
         grid.add(addLastLab, 0, 1);
@@ -117,9 +112,8 @@ public class Runner extends Application {
         grid.add(getListLab, 0, 6);
         grid.add(deleteLab, 0, 7);
         grid.add(sizeLab, 0, 8);
-        grid.add(getObjectLab, 0, 9);
-        grid.add(getFirstLab, 0, 10);
-        grid.add(getLastLab, 0, 11);
+        grid.add(getFirstLab, 0, 9);
+        grid.add(getLastLab, 0, 10);
 
         title.setId("title");
         subtitle.setId("subtitle");
@@ -150,6 +144,14 @@ public class Runner extends Application {
             list.setPrevScene(scene);
             list.setPrevStage(primaryStage);
             primaryStage.setScene(list.getScene());
+        });
+
+        findInfoBtn.setOnAction(event -> {
+            Search search = new Search();
+            search.scene(primaryStage);
+            //search.setPrevScene(scene);
+            //search.setPrevStage(primaryStage);
+            //primaryStage.setScene(search.getScene());
         });
     }
 

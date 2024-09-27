@@ -68,3 +68,23 @@
 .text-field:focused {
     -fx-border-color: #B52626;
 }
+
+#rootSearch {
+    -fx-background-color: #1C1C1C;
+    -fx-background-radius: 20;
+    -fx-border-radius: 25;
+    -fx-border-color: #1C1C1C;
+    -fx-border-width: 10;
+}
+
+#txtSearch {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-background-color: #1C1C1C;
+    -fx-border-color: #1C1C1C;
+    -fx-highlight-fill: #333333;
+}
+
+#txtSearch:focused {
+    -fx-border-color: #1C1C1C;
+}
