@@ -191,12 +191,12 @@ public class NewMoto {
         priceText.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 String input = priceText.getText();
-                long priceLong = listManagement.isNumericInt(input);
+                int priceInt = listManagement.isNumericInt(input);
 
                 if (listManagement.isNumericInt(input) == -1) {
                     priceText.setText("Enter a numeric value");
                     priceText.setStyle("-fx-text-fill: #B52626;");
-                } else if (!listManagement.priceValidation(priceLong)){
+                } else if (!listManagement.priceValidation(priceInt)){
                     priceText.setText("Min: 2000000, Max: 160000000");
                     priceText.setStyle("-fx-text-fill: #B52626;");
                 }else {

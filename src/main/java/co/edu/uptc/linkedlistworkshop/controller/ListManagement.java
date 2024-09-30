@@ -1,66 +1,98 @@
 package co.edu.uptc.linkedlistworkshop.controller;
 
+
+
 import co.edu.uptc.linkedlistworkshop.model.Moto;
+
 import java.util.ArrayList;
 
 public class ListManagement {
 
+    private LinkedList <Moto> motoList;
+
+    public ListManagement() {
+        motoList = new LinkedList<>();
+    }
+
     public boolean isEmpty() {
-        return true;
+        return motoList.isEmpty();
     }
 
-    public void addNodeFirst(int id, String brand, String model, String color, int year, int engineSize, double price) {
-
+    public boolean addNodeFirst(int id, String brand, String model, String color, int year, int engineSize, int price) {
+        try {
+            Moto newMoto = new Moto(id, brand, model, color, year, engineSize, price);
+            motoList.addNodeFirst(newMoto);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void addNodeLast(int id, String brand, String model, String color, int year, int engineSize, double price) {
-
+    public boolean addNodeLast(int id, String brand, String model, String color, int year, int engineSize, int price) {
+        try {
+            Moto newMoto = new Moto(id, brand, model, color, year, engineSize, price);
+            motoList.addNodeLast(newMoto);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void addNodeAfterTo(int currentId, int id, String brand, String model, String color, int year, int engineSize, double price) {
+    public boolean addNodeAfterTo(int currentId, int id, String brand, String model, String color, int year, int engineSize, int price) {
+        try {
+            Moto newMoto = new Moto(id, brand, model, color, year, engineSize, price);
+            motoList.addNodeAfterTo(currentId, newMoto);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void addNodeBeforeTo(int currentId, int id, String brand, String model, String color, int year, int engineSize, double price) {
-
+    public boolean addNodeBeforeTo(int currentId, int id, String brand, String model, String color, int year, int engineSize, int price) {
+        try {
+            Moto newMoto = new Moto(id, brand, model, color, year, engineSize, price);
+            motoList.addNodeBeforeTo(currentId, newMoto);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void addNodeSorted(int id, String brand, String model, String color, int year, int engineSize, double price) {
-
+    public boolean addNodeSorted(int id, String brand, String model, String color, int year, int engineSize, int price) {
+        try {
+            Moto newMoto = new Moto(id, brand, model, color, year, engineSize, price);
+            motoList.addNodeSorted(newMoto);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public boolean findNode(int id) {
-        return true;
+    public Node<Moto> findNode(int id) {
+        return motoList.findNode(id);
     }
 
-    public ArrayList<String> getLinkedList(boolean order){
-        return null;
+    public ArrayList<Moto> getLinkedList(boolean order){
+        return motoList.getLinkedList(order);
     }
 
     public String deleteNode(int id) {
-        return "";
+        return motoList.deleteNode(id).toString();
     }
 
     public int getSize(){
-        return 0;
+        return motoList.getSize();
     }
 
     public String getFist() {
-        return "";
+        return motoList.getFist().toString();
     }
 
     public String getLast() {
-        return "";
+        return motoList.getLast().toString();
     }
 
-    public void sortLinkedList(){
-
-    }
-
-    public int getNodeId(int id, String brand, String model, String color, int year, int engineSize, double price) {
-        return -1;
-    }
-
-    public boolean priceValidation(double price) {
+    public boolean priceValidation(int price) {
         return price >= 2000000 && price <= 160000000;
     }
 
