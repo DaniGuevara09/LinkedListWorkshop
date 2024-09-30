@@ -1,9 +1,6 @@
 package co.edu.uptc.linkedlistworkshop.controller;
 
-
-
 import co.edu.uptc.linkedlistworkshop.model.Moto;
-
 import java.util.ArrayList;
 
 public class ListManagement {
@@ -98,6 +95,10 @@ public class ListManagement {
 
     public boolean engineValidation(int engine){
         return engine >= 50 && engine <= 1200;
+    }
+
+    public boolean idValidation(int id){
+        return id >= 0;
     }
 
     public int isNumericInt(String str) {

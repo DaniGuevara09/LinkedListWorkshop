@@ -32,6 +32,7 @@ public class NewMoto {
     private Button returnButton;
     private HBox buttons;
 
+    private Label idLabel;
     private Label brandLabel;
     private Label modelLabel;
     private Label colorLabel;
@@ -39,6 +40,7 @@ public class NewMoto {
     private Label engineSizeLabel;
     private Label priceLabel;
 
+    private TextField idText;
     private ComboBox<String> brandComboBox;
     private TextField modelText;
     private ComboBox<String> colorComboBox;
@@ -49,6 +51,9 @@ public class NewMoto {
     private GridPane gridPane;
     private int menuOption;
     private int currentNodeId;
+    private boolean event1;
+    private boolean event2;
+    private boolean event3;
 
     public NewMoto() {
         listManagement = new ListManagement();
@@ -66,6 +71,7 @@ public class NewMoto {
         colorComboBox = new ComboBox<>();
         yearComboBox = new ComboBox<>();
 
+        idLabel = new Label("Id: ");
         brandLabel = new Label("Brand: ");
         modelLabel = new Label("Model: ");
         colorLabel = new Label("Color: ");
@@ -73,11 +79,15 @@ public class NewMoto {
         engineSizeLabel = new Label("Engine Size (c.c): ");
         priceLabel = new Label("Price (cop): ");
 
+        idText = new TextField();
         modelText = new TextField();
         engineSizeText = new TextField();
         priceText = new TextField();
 
         gridPane = new GridPane();
+        event1 = false;
+        event2 = false;
+        event3 = false;
         scene();
     }
 
@@ -88,19 +98,21 @@ public class NewMoto {
                 .add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString());
 
         // Column - Row
-        gridPane.add(brandLabel, 0, 0);
-        gridPane.add(modelLabel, 0, 1);
-        gridPane.add(colorLabel, 0, 2);
-        gridPane.add(yearLabel, 0, 3);
-        gridPane.add(engineSizeLabel, 0, 4);
-        gridPane.add(priceLabel, 0, 5);
+        gridPane.add(idLabel, 0, 0);
+        gridPane.add(brandLabel, 0, 1);
+        gridPane.add(modelLabel, 0, 2);
+        gridPane.add(colorLabel, 0, 3);
+        gridPane.add(yearLabel, 0, 4);
+        gridPane.add(engineSizeLabel, 0, 5);
+        gridPane.add(priceLabel, 0, 6);
 
-        gridPane.add(brandComboBox, 1, 0);
-        gridPane.add(modelText, 1, 1);
-        gridPane.add(colorComboBox, 1, 2);
-        gridPane.add(yearComboBox, 1, 3);
-        gridPane.add(engineSizeText, 1, 4);
-        gridPane.add(priceText, 1, 5);
+        gridPane.add(idText, 1, 0);
+        gridPane.add(brandComboBox, 1, 1);
+        gridPane.add(modelText, 1, 2);
+        gridPane.add(colorComboBox, 1, 3);
+        gridPane.add(yearComboBox, 1, 4);
+        gridPane.add(engineSizeText, 1, 5);
+        gridPane.add(priceText, 1, 6);
 
         BorderPane.setMargin(title, new Insets(100, 100, 100, 100));
         BorderPane.setMargin(buttons, new Insets(100, 50, 50, 0));
@@ -160,6 +172,7 @@ public class NewMoto {
     }
 
     public void events() {
+
         returnButton.setOnAction(event -> {
             Runner main = new Runner();
             main.setPrimaryStage(prevStage);
@@ -171,6 +184,31 @@ public class NewMoto {
             }
         });
 
+        idText.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                String input = idText.getText();
+                int idInt = listManagement.isNumericInt(input);
+
+                if (listManagement.isNumericInt(input) == -1) {
+                    idText.setText("Enter a numeric value");
+                    idText.setStyle("-fx-text-fill: #B52626;");
+                    event1 = false;
+                } else if (!listManagement.idValidation(idInt)){
+                    idText.setText("Enter natural numbers");
+                    idText.setStyle("-fx-text-fill: #B52626;");
+                    event1 = false;
+                } else if (listManagement.findNode(idInt) != null) {
+                    idText.setText("This ID already exists");
+                    idText.setStyle("-fx-text-fill: #B52626;");
+                    event1 = false;
+                } else {
+                    idText.setStyle("-fx-text-fill: white;");
+                    event1 = true;
+                }
+            }
+            addNewData();
+        });
+
         engineSizeText.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 String input = engineSizeText.getText();
@@ -179,13 +217,17 @@ public class NewMoto {
                 if (engineInt == -1) {
                     engineSizeText.setText("Enter a numeric value");
                     engineSizeText.setStyle("-fx-text-fill: #B52626;");
+                    event2 = false;
                 } else if (!listManagement.engineValidation(engineInt)){
                     engineSizeText.setText("Min: 50, Max: 1200");
                     engineSizeText.setStyle("-fx-text-fill: #B52626;");
+                    event2 = false;
                 } else {
                     engineSizeText.setStyle("-fx-text-fill: white;");
+                    event2 = true;
                 }
             }
+            addNewData();
         });
 
         priceText.focusedProperty().addListener((observable, oldValue, newValue) -> {
@@ -196,36 +238,76 @@ public class NewMoto {
                 if (listManagement.isNumericInt(input) == -1) {
                     priceText.setText("Enter a numeric value");
                     priceText.setStyle("-fx-text-fill: #B52626;");
+                    event3 = false;
                 } else if (!listManagement.priceValidation(priceInt)){
                     priceText.setText("Min: 2000000, Max: 160000000");
                     priceText.setStyle("-fx-text-fill: #B52626;");
+                    event3 = false;
                 }else {
                     priceText.setStyle("-fx-text-fill: white;");
+                    event3 = true;
                 }
             }
+            addNewData();
         });
-
     }
 
     public void titleLabel(){
         String text = "Add a New Motorcycle";
         switch (menuOption){
-            case 1:
-                title.setText(text + " at the Beginning");
-                break;
-            case 2:
-                title.setText(text + " at the End");
-                break;
-            case 3:
-                title.setText(text + " After to No. " + currentNodeId);
-                break;
-            case 4:
-                title.setText(text + " Before to No. " + currentNodeId);
-                break;
-            case 5:
-                title.setText(text + " in an Ordered Manner");
-                break;
-            default:
+            case 1 -> title.setText(text + " at the Beginning");
+            case 2 -> title.setText(text + " at the End");
+            case 3 -> title.setText(text + " After to No. " + currentNodeId);
+            case 4 -> title.setText(text + " Before to No. " + currentNodeId);
+            case 5 -> title.setText(text + " in an Ordered Manner");
+        }
+    }
+
+    public void addNewData(){
+        if (event1 && event2 && event3) {
+            int id = Integer.parseInt(idText.getText());
+            String brand = brandComboBox.getValue();
+            String model = modelText.getText();
+            String color = colorComboBox.getValue();
+            int year = yearComboBox.getValue();
+            int engineSize = Integer.parseInt(engineSizeText.getText());
+            int price = Integer.parseInt(priceText.getText());
+
+            switch (menuOption){
+                case 1 -> addButton.setOnAction(event -> {
+                    listManagement.addNodeFirst(id, brand, model, color, year, engineSize, price);
+                    message();
+                });
+                case 2 -> addButton.setOnAction(event -> {
+                    listManagement.addNodeLast(id, brand, model, color, year, engineSize, price);
+                    message();
+                });
+                case 3 -> addButton.setOnAction(event -> {
+                    listManagement.addNodeAfterTo(currentNodeId, id, brand, model, color, year, engineSize, price);
+                    message();
+                });
+                case 4 -> addButton.setOnAction(event -> {
+                    listManagement.addNodeBeforeTo(currentNodeId, id, brand, model, color, year, engineSize, price);
+                    message();
+                });
+                case 5 -> addButton.setOnAction(event -> {
+                    listManagement.addNodeSorted(id, brand, model, color, year, engineSize, price);
+                    message();
+                });
+            }
+        }
+    }
+
+    public void message(){
+        Confirmation config = new Confirmation();
+        config.scene(prevStage, "Added Successfully");
+        Runner main = new Runner();
+        main.setPrimaryStage(prevStage);
+        main.setScene(prevScene);
+        try {
+            main.start(prevStage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
