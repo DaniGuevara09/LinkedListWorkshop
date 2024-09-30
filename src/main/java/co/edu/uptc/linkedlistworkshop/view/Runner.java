@@ -17,10 +17,8 @@ public class Runner extends Application {
     private Scene scene;
     private VBox root;
     private GridPane grid;
-
     private Label title;
     private Label subtitle;
-
     private Label addFirstLab;
     private Label addLastLab;
     private Label afterToLab;
@@ -32,7 +30,6 @@ public class Runner extends Application {
     private Label sizeLab;
     private Label getFirstLab;
     private Label getLastLab;
-
     private Button addFirstBtn;
     private Button addLastBtn;
     private Button afterToBtn;
@@ -183,10 +180,10 @@ public class Runner extends Application {
         newMoto.setPrevScene(scene);
         newMoto.setPrevStage(primaryStage);
         primaryStage.setScene(newMoto.getScene());
-        newMoto.setMenuOption(op);
+        newMoto.setMenuOptionAndId(op, -1);
     }
 
-    public void addMotoWindow(NewMoto newMoto, int op, Stage stage, Scene scene){
+    public void addMotoWindow(NewMoto newMoto, int op, Stage stage, Scene scene, int id){
         primaryStage.close();
         this.scene = scene;
         primaryStage = stage;
@@ -194,7 +191,7 @@ public class Runner extends Application {
         newMoto.setPrevScene(scene);
         newMoto.setPrevStage(primaryStage);
         primaryStage.setScene(newMoto.getScene());
-        newMoto.setMenuOption(op);
+        newMoto.setMenuOptionAndId(op, id);
     }
 
     public void addAfterBefore(int op){

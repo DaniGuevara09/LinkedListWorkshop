@@ -1,7 +1,6 @@
 package co.edu.uptc.linkedlistworkshop.controller;
 
 import co.edu.uptc.linkedlistworkshop.model.Moto;
-
 import java.util.ArrayList;
 
 public class LinkedList <T> {

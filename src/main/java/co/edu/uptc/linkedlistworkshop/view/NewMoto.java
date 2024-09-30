@@ -1,5 +1,6 @@
 package co.edu.uptc.linkedlistworkshop.view;
 
+import co.edu.uptc.linkedlistworkshop.controller.ListManagement;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class NewMoto {
+    private ListManagement listManagement;
     private Stage prevStage;
     private Scene prevScene;
     private Scene scene;
@@ -39,7 +41,7 @@ public class NewMoto {
 
     private ComboBox<String> brandComboBox;
     private TextField modelText;
-    private TextField colorText;
+    private ComboBox<String> colorComboBox;
     private ComboBox<Integer> yearComboBox;
     private TextField engineSizeText;
     private TextField priceText;
@@ -49,6 +51,7 @@ public class NewMoto {
     private int currentNodeId;
 
     public NewMoto() {
+        listManagement = new ListManagement();
         root = new BorderPane();
         screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
         screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
@@ -60,6 +63,7 @@ public class NewMoto {
         buttons = new HBox();
 
         brandComboBox = new ComboBox<>();
+        colorComboBox = new ComboBox<>();
         yearComboBox = new ComboBox<>();
 
         brandLabel = new Label("Brand: ");
@@ -70,7 +74,6 @@ public class NewMoto {
         priceLabel = new Label("Price (cop): ");
 
         modelText = new TextField();
-        colorText = new TextField();
         engineSizeText = new TextField();
         priceText = new TextField();
 
@@ -94,7 +97,7 @@ public class NewMoto {
 
         gridPane.add(brandComboBox, 1, 0);
         gridPane.add(modelText, 1, 1);
-        gridPane.add(colorText, 1, 2);
+        gridPane.add(colorComboBox, 1, 2);
         gridPane.add(yearComboBox, 1, 3);
         gridPane.add(engineSizeText, 1, 4);
         gridPane.add(priceText, 1, 5);
@@ -134,6 +137,20 @@ public class NewMoto {
         }
         brandComboBox.setValue("BMW");
 
+        // Color
+        ArrayList<String> color = new ArrayList<>();
+        color.add("Black");
+        color.add("White");
+        color.add("Red");
+        color.add("Purple");
+        color.add("Blue");
+        color.add("Green");
+
+        for (String c : color) {
+            colorComboBox.getItems().add(c);
+        }
+        colorComboBox.setValue("Black");
+
         // Year
         int currentYear = LocalDate.now().getYear();
         for (int year = 2014; year <= currentYear; year++) {
@@ -153,6 +170,41 @@ public class NewMoto {
                 throw new RuntimeException(e);
             }
         });
+
+        engineSizeText.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                String input = engineSizeText.getText();
+                int engineInt = listManagement.isNumericInt(input);
+
+                if (engineInt == -1) {
+                    engineSizeText.setText("Enter a numeric value");
+                    engineSizeText.setStyle("-fx-text-fill: #B52626;");
+                } else if (!listManagement.engineValidation(engineInt)){
+                    engineSizeText.setText("Min: 50, Max: 1200");
+                    engineSizeText.setStyle("-fx-text-fill: #B52626;");
+                } else {
+                    engineSizeText.setStyle("-fx-text-fill: white;");
+                }
+            }
+        });
+
+        priceText.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                String input = priceText.getText();
+                long priceLong = listManagement.isNumericInt(input);
+
+                if (listManagement.isNumericInt(input) == -1) {
+                    priceText.setText("Enter a numeric value");
+                    priceText.setStyle("-fx-text-fill: #B52626;");
+                } else if (!listManagement.priceValidation(priceLong)){
+                    priceText.setText("Min: 2000000, Max: 160000000");
+                    priceText.setStyle("-fx-text-fill: #B52626;");
+                }else {
+                    priceText.setStyle("-fx-text-fill: white;");
+                }
+            }
+        });
+
     }
 
     public void titleLabel(){
@@ -193,8 +245,9 @@ public class NewMoto {
         return menuOption;
     }
 
-    public void setMenuOption(int menuOption) {
+    public void setMenuOptionAndId(int menuOption, int currentNodeId) {
         this.menuOption = menuOption;
+        this.currentNodeId = currentNodeId;
         titleLabel();
     }
 }

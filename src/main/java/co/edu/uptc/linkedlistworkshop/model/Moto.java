@@ -11,9 +11,9 @@ public class Moto {
     private String color;
     private int year;
     private int engineSize;
-    private double price;
+    private int price;
 
-    public Moto(int id, String brand, String model, String color, int year, int engineSize, double price) {
+    public Moto(int id, String brand, String model, String color, int year, int engineSize, int price) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -71,11 +71,11 @@ public class Moto {
         this.engineSize = engineSize;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }

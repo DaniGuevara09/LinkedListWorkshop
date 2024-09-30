@@ -1,5 +1,6 @@
 package co.edu.uptc.linkedlistworkshop.view;
 
+import co.edu.uptc.linkedlistworkshop.controller.ListManagement;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.stage.StageStyle;
 import java.io.File;
 
 public class AddAfterBefore {
+    private ListManagement listManagement;
 
     private Stage prevStage;
     private Scene prevScene;
@@ -31,6 +33,7 @@ public class AddAfterBefore {
     private int currentNodeId;
 
     public AddAfterBefore() {
+        listManagement = new ListManagement();
         root = new VBox();
         stage = new Stage();
         prevStage = new Stage();
@@ -52,11 +55,11 @@ public class AddAfterBefore {
         textField.setId("txtSearch2");
 
         returnBtn.setOnAction(event -> stage.close());
+        events();
 
         buttons.getChildren().addAll(nextBtn, returnBtn);
         buttons.setSpacing(100);
         buttons.setAlignment(Pos.CENTER);
-        nextBtn.setOnAction(e -> addMotoWindow(new NewMoto()));
 
         root.setAlignment(Pos.CENTER);
         root.setSpacing(40);
@@ -66,7 +69,6 @@ public class AddAfterBefore {
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT); // Without name and exit button
         stage.initModality(Modality.WINDOW_MODAL); // Block the first window
-        //stage.initOwner(primaryStage);
         stage.setScene(scene);
         stage.showAndWait();
     }
@@ -74,7 +76,25 @@ public class AddAfterBefore {
     public void addMotoWindow(NewMoto newMoto){
         stage.close();
         Runner run = new Runner();
-        run.addMotoWindow(newMoto, menuOption, prevStage, prevScene);
+        run.addMotoWindow(newMoto, menuOption, prevStage, prevScene, currentNodeId);
+    }
+
+    public void events(){
+        textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                String input = textField.getText();
+                int id = listManagement.isNumericInt(input);
+
+                if (id == -1) {
+                    textField.setText("Enter a numeric value");
+                    textField.setStyle("-fx-text-fill: #B52626;");
+                } else {
+                    currentNodeId = id;
+                    textField.setStyle("-fx-text-fill: white;");
+                    nextBtn.setOnAction(e -> addMotoWindow(new NewMoto()));
+                }
+            }
+        });
     }
 
     public void setCurrentNodeId(int currentNodeId) {
