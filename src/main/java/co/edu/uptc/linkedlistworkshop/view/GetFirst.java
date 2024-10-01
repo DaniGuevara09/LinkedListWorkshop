@@ -1,5 +1,7 @@
 package co.edu.uptc.linkedlistworkshop.view;
 
+import co.edu.uptc.linkedlistworkshop.controller.ListManagement;
+import co.edu.uptc.linkedlistworkshop.model.Moto;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.stage.StageStyle;
 import java.io.File;
 
 public class GetFirst {
+    private ListManagement listManagement;
     private Stage stage;
     private Scene scene;
 
@@ -24,6 +27,7 @@ public class GetFirst {
     private Button returnBtn;
 
     public GetFirst() {
+        listManagement = new ListManagement();
         root = new VBox();
         stage = new Stage();
         title = new Label("First Motorcycle");
@@ -33,7 +37,8 @@ public class GetFirst {
         scene = new Scene(root, 500, 555);
     }
 
-    public void scene(Stage primaryStage) {
+    public void scene(Stage primaryStage, ListManagement listManagement) {
+        this.listManagement = listManagement;
         scene.getStylesheets()
                 .add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString());
         root.setId("rootSearch");
@@ -42,6 +47,11 @@ public class GetFirst {
         returnBtn.setOnAction(event -> stage.close());
 
         title.setPrefWidth(200);
+
+        Moto moto = listManagement.getFist();
+        label.setText("- ID: " + moto.getId() + "\n\n- Brand: " + moto.getBrand() + "\n\n- Model: " + moto.getModel() +
+                "\n\n- Color: " + moto.getColor() + "\n\n- Year: " + moto.getYear() + "\n\n- EngineSize: " +
+                moto.getEngineSize() + " c.c" + "\n\n- Price: $" + moto.getPrice());
 
         // Up, right, down, left
         VBox.setMargin(title, new Insets(10, 0, 20, 150));
@@ -57,7 +67,9 @@ public class GetFirst {
         stage.showAndWait();
     }
 
-    public void moto(){
-        label = new Label("- ID: " + "\n\n- Brand: " + "\n\n- Model: " + "\n\n- Color: " + "\n\n- Year: " + "\n\n- EngineSize: " + " c.c" + "\n\n- Price: $");
+    public void moto() {
+        label = new Label(
+                "- ID: " + "\n\n- Brand: " + "\n\n- Model: " + "\n\n- Color: " + "\n\n- Year: " + "\n\n- EngineSize: " +
+                        " c.c" + "\n\n- Price: $");
     }
 }

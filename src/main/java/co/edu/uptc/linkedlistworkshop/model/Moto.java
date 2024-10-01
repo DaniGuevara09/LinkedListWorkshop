@@ -23,12 +23,24 @@ public class Moto {
         this.price = price;
     }
 
+    public Moto() {
+
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getBrand() {
@@ -45,14 +57,6 @@ public class Moto {
 
     public void setModel(String model) {
         this.model = model;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public int getYear() {
@@ -77,5 +81,18 @@ public class Moto {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Moto{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", color='" + color + '\'' +
+                ", year=" + year +
+                ", engineSize=" + engineSize +
+                ", price=" + price +
+                '}';
     }
 }

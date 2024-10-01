@@ -144,12 +144,12 @@ public class LinkedList <T> {
         return size;
     }
 
-    public T getFist() {
-        return head.getInfo();
+    public Node<T> getFist() {
+        return head;
     }
 
-    public T getLast() {
-        return last.getInfo();
+    public Node<T> getLast() {
+        return last;
     }
 
     public void sortLinkedList(){

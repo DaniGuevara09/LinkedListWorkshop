@@ -44,9 +44,10 @@ public class AddAfterBefore {
         scene = new Scene(root, 800, 150);
     }
 
-    public void scene(Stage primaryStage, Scene lastScene, int op) {
+    public void scene(Stage primaryStage, Scene lastScene, int op, ListManagement management) {
         prevScene = lastScene;
         prevStage = primaryStage;
+        listManagement = management;
         menuOption = op;
 
         scene.getStylesheets()
@@ -73,10 +74,12 @@ public class AddAfterBefore {
         stage.showAndWait();
     }
 
-    public void addMotoWindow(NewMoto newMoto){
+    public void addMotoWindow(){
         stage.close();
+        NewMoto newMoto = new NewMoto();
+        newMoto.setListManagement(listManagement);
         Runner run = new Runner();
-        run.addMotoWindow(newMoto, menuOption, prevStage, prevScene, currentNodeId);
+        run.addMotoWindow(newMoto, menuOption, prevStage, prevScene, currentNodeId, listManagement);
     }
 
     public void events(){
@@ -88,10 +91,16 @@ public class AddAfterBefore {
                 if (id == -1) {
                     textField.setText("Enter a numeric value");
                     textField.setStyle("-fx-text-fill: #B52626;");
+                } else if (!listManagement.idValidation(id)){
+                    textField.setText("Enter natural numbers");
+                    textField.setStyle("-fx-text-fill: #B52626;");
+                } else if (listManagement.findNode(id) == null) {
+                    textField.setText("This ID doesn't exists");
+                    textField.setStyle("-fx-text-fill: #B52626;");
                 } else {
                     currentNodeId = id;
                     textField.setStyle("-fx-text-fill: white;");
-                    nextBtn.setOnAction(e -> addMotoWindow(new NewMoto()));
+                    nextBtn.setOnAction(e -> addMotoWindow());
                 }
             }
         });
@@ -107,6 +116,14 @@ public class AddAfterBefore {
 
     public void setMenuOption(int menuOption) {
         this.menuOption = menuOption;
+    }
+
+    public ListManagement getListManagement() {
+        return listManagement;
+    }
+
+    public void setListManagement(ListManagement listManagement) {
+        this.listManagement = listManagement;
     }
 }
 

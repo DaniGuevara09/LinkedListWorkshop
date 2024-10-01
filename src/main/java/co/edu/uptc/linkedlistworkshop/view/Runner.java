@@ -1,5 +1,6 @@
 package co.edu.uptc.linkedlistworkshop.view;
 
+import co.edu.uptc.linkedlistworkshop.controller.ListManagement;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,10 +14,13 @@ import java.io.IOException;
 
 public class Runner extends Application {
 
+    private ListManagement listManagement;
+
     private Stage primaryStage;
     private Scene scene;
     private VBox root;
     private GridPane grid;
+
     private Label title;
     private Label subtitle;
     private Label addFirstLab;
@@ -30,6 +34,7 @@ public class Runner extends Application {
     private Label sizeLab;
     private Label getFirstLab;
     private Label getLastLab;
+
     private Button addFirstBtn;
     private Button addLastBtn;
     private Button afterToBtn;
@@ -47,6 +52,7 @@ public class Runner extends Application {
     private static double screenHeight;
 
     public Runner() {
+        listManagement = new ListManagement();
         screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
         screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
 
@@ -143,60 +149,63 @@ public class Runner extends Application {
             list.setPrevScene(scene);
             list.setPrevStage(primaryStage);
             primaryStage.setScene(list.getScene());
+            list.scene(listManagement);
         });
 
         findInfoBtn.setOnAction(event -> {
             Search search = new Search();
-            search.scene(primaryStage);
-            //search.setPrevScene(scene);
-            //search.setPrevStage(primaryStage);
-            //primaryStage.setScene(search.getScene());
+            search.scene(primaryStage, listManagement);
         });
 
         deleteBtn.setOnAction(event -> {
             Delete delete = new Delete();
-            delete.scene(primaryStage);
+            delete.scene(primaryStage, listManagement);
         });
 
         getFirstBtn.setOnAction(event -> {
             GetFirst getFirst = new GetFirst();
-            getFirst.scene(primaryStage);
+            getFirst.scene(primaryStage, listManagement);
         });
 
         getLastBtn.setOnAction(event -> {
             GetLast getLast = new GetLast();
-            getLast.scene(primaryStage);
+            getLast.scene(primaryStage, listManagement);
         });
 
         sizeBtn.setOnAction(event -> {
             Total total = new Total();
-            total.scene(primaryStage);
+            total.scene(primaryStage, listManagement);
         });
 
         exit.setOnAction(event -> primaryStage.close());
     }
 
-    public void addMotoWindow(NewMoto newMoto, int op){
+    public void addMotoWindow(NewMoto newMoto, int op) {
         newMoto.setPrevScene(scene);
         newMoto.setPrevStage(primaryStage);
         primaryStage.setScene(newMoto.getScene());
         newMoto.setMenuOptionAndId(op, -1);
+        newMoto.setListManagement(listManagement);
     }
 
-    public void addMotoWindow(NewMoto newMoto, int op, Stage stage, Scene scene, int id){
+    public void addMotoWindow(NewMoto newMoto, int op, Stage stage, Scene scene, int id, ListManagement management){
         primaryStage.close();
         this.scene = scene;
+        this.listManagement = management;
         primaryStage = stage;
 
         newMoto.setPrevScene(scene);
         newMoto.setPrevStage(primaryStage);
         primaryStage.setScene(newMoto.getScene());
         newMoto.setMenuOptionAndId(op, id);
+        newMoto.setListManagement(listManagement);
+        System.out.println("Runner: " + listManagement);
     }
 
     public void addAfterBefore(int op){
         AddAfterBefore add = new AddAfterBefore();
-        add.scene(primaryStage, scene, op);
+        add.scene(primaryStage, scene, op, listManagement);
+        //add.setListManagement(listManagement);
     }
 
     public void setPrimaryStage(Stage primaryStage) {
@@ -209,5 +218,13 @@ public class Runner extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public ListManagement getManagement() {
+        return listManagement;
+    }
+
+    public void setManagement(ListManagement listManagement) {
+        this.listManagement = Runner.this.listManagement;
     }
 }

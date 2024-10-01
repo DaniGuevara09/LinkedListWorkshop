@@ -9,6 +9,8 @@ public class ListManagement {
 
     public ListManagement() {
         motoList = new LinkedList<>();
+        addNodeSorted(1, "brand", "asdf", "res", 2002, 33, 333333);
+        addNodeSorted(2, "brand", "asdf", "res", 2002, 22, 222222);
     }
 
     public boolean isEmpty() {
@@ -81,12 +83,12 @@ public class ListManagement {
         return motoList.getSize();
     }
 
-    public String getFist() {
-        return motoList.getFist().toString();
+    public Moto getFist() {
+        return motoList.getFist().getInfo();
     }
 
-    public String getLast() {
-        return motoList.getLast().toString();
+    public Moto getLast() {
+        return motoList.getLast().getInfo();
     }
 
     public boolean priceValidation(int price) {

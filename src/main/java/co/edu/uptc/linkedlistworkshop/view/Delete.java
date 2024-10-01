@@ -1,5 +1,7 @@
 package co.edu.uptc.linkedlistworkshop.view;
 
+import co.edu.uptc.linkedlistworkshop.controller.ListManagement;
+import co.edu.uptc.linkedlistworkshop.model.Moto;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +19,7 @@ import java.io.File;
 
 public class Delete {
 
+    private ListManagement listManagement;
     private Stage stage;
     private Scene scene;
 
@@ -27,20 +30,24 @@ public class Delete {
     private HBox hBoxBtns;
     private Button returnBtn;
     private Button delete;
+    private Button searchBtn;
 
     public Delete() {
+        listManagement = new ListManagement();
         root = new VBox();
         hBoxBtns = new HBox();
         stage = new Stage();
         textField = new TextField("Enter the Motorcycle Id");
         separator = new Separator();
         label = new Label();
+        searchBtn = new Button("Search");
         returnBtn = new Button("Return");
-        delete = new Button("Delete Moto");
+        delete = new Button("Delete");
         scene = new Scene(root, 500, 555);
     }
 
-    public void scene(Stage primaryStage) {
+    public void scene(Stage primaryStage, ListManagement listManagement) {
+        this.listManagement = listManagement;
         scene.getStylesheets()
                 .add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString());
         root.setId("rootSearch");
@@ -55,7 +62,7 @@ public class Delete {
         HBox.setMargin(returnBtn, new Insets(0, 25, 0, 25));
         HBox.setMargin(delete, new Insets(0, 25, 0, 25));
 
-        hBoxBtns.getChildren().addAll(delete, returnBtn);
+        hBoxBtns.getChildren().addAll(searchBtn, delete, returnBtn);
 
         root.getChildren().addAll(textField, separator, label, hBoxBtns);
         scene.setFill(Color.TRANSPARENT);
@@ -70,8 +77,40 @@ public class Delete {
         label = new Label("- ID: " + "\n\n- Brand: " + "\n\n- Model: " + "\n\n- Color: " + "\n\n- Year: " + "\n\n- EngineSize: " + " c.c" + "\n\n- Price: $");
     }
 
-    public void events() {
+    public void events(){
         returnBtn.setOnAction(event -> stage.close());
+
+        textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                String input = textField.getText();
+                int id = listManagement.isNumericInt(input);
+
+                if (id == -1) {
+                    textField.setText("Enter a numeric value");
+                    textField.setStyle("-fx-text-fill: #B52626;");
+                } else if (!listManagement.idValidation(id)){
+                    textField.setText("Enter natural numbers");
+                    textField.setStyle("-fx-text-fill: #B52626;");
+                } else if (listManagement.findNode(id) == null) {
+                    textField.setText("This ID doesn't exists");
+                    textField.setStyle("-fx-text-fill: #B52626;");
+                } else {
+                    textField.setStyle("-fx-text-fill: white;");
+
+                    searchBtn.setOnAction(event -> {
+                        Moto moto = listManagement.findNode(id).getInfo();
+                        label.setText("- ID: " + moto.getId() + "\n\n- Brand: " + moto.getBrand() + "\n\n- Model: " + moto.getModel() + "\n\n- Color: " + moto.getColor() + "\n\n- Year: " + moto.getYear() + "\n\n- EngineSize: " + moto.getEngineSize() + " c.c" + "\n\n- Price: $" + moto.getPrice());
+                    });
+
+                    delete.setOnAction(event -> {
+                        listManagement.deleteNode(id);
+                        Confirmation config = new Confirmation();
+                        config.scene(null, "Deleted Successfully");
+                        stage.close();
+                    });
+                }
+            }
+        });
     }
 }
 

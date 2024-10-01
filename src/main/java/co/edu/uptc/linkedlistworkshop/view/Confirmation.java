@@ -1,5 +1,6 @@
 package co.edu.uptc.linkedlistworkshop.view;
 
+import co.edu.uptc.linkedlistworkshop.controller.ListManagement;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import javafx.stage.StageStyle;
 import java.io.File;
 
 public class Confirmation {
+    private ListManagement listManagement;
     private Stage stage;
     private Scene scene;
 
@@ -20,6 +22,7 @@ public class Confirmation {
     private Button returnBtn;
 
     public Confirmation() {
+        listManagement = new ListManagement();
         root = new VBox();
         stage = new Stage();
         label = new Label();
@@ -44,5 +47,13 @@ public class Confirmation {
         stage.initOwner(primaryStage);
         stage.setScene(scene);
         stage.showAndWait();
+    }
+
+    public ListManagement getListManagement() {
+        return listManagement;
+    }
+
+    public void setListManagement(ListManagement listManagement) {
+        this.listManagement = listManagement;
     }
 }

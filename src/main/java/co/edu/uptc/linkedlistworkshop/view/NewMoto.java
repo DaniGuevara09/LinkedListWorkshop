@@ -332,4 +332,12 @@ public class NewMoto {
         this.currentNodeId = currentNodeId;
         titleLabel();
     }
+
+    public ListManagement getListManagement() {
+        return listManagement;
+    }
+
+    public void setListManagement(ListManagement listManagement) {
+        this.listManagement = listManagement;
+    }
 }

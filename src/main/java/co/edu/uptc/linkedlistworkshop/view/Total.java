@@ -1,21 +1,19 @@
 package co.edu.uptc.linkedlistworkshop.view;
 
-import javafx.geometry.Insets;
+import co.edu.uptc.linkedlistworkshop.controller.ListManagement;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.File;
 
 public class Total {
+    private ListManagement listManagement;
     private Stage stage;
     private Scene scene;
 
@@ -24,6 +22,7 @@ public class Total {
     private Button returnBtn;
 
     public Total() {
+        listManagement = new ListManagement();
         root = new VBox();
         stage = new Stage();
         label = new Label("Last Motorcycle");
@@ -31,12 +30,12 @@ public class Total {
         scene = new Scene(root, 800, 150);
     }
 
-    public void scene(Stage primaryStage) {
+    public void scene(Stage primaryStage, ListManagement listManagement) {
         scene.getStylesheets()
                 .add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString());
         root.setId("rootSearch");
 
-        info();
+        label.setText("The Number of Stored Motorcycles is: " + listManagement.getSize());
         returnBtn.setOnAction(event -> stage.close());
 
         root.setSpacing(40);
@@ -48,9 +47,5 @@ public class Total {
         stage.initOwner(primaryStage);
         stage.setScene(scene);
         stage.showAndWait();
-    }
-
-    public void info(){
-        label = new Label("The Number of Stored Motorcycles is: ");
     }
 }

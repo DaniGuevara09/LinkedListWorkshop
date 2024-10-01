@@ -101,3 +101,21 @@
 #txtSearch2:focused {
     -fx-border-color: #B52626;
 }
+
+.table-view {
+    -fx-background-color: #0F0F0F;
+    -fx-control-inner-background: #0F0F0F;
+    -fx-font-size: 20px;
+}
+
+.table-row-cell {
+    -fx-background-color: #0F0F0F;
+}
+
+.table-cell {
+    -fx-background-color: #0F0F0F;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #0F0F0F;
+}
