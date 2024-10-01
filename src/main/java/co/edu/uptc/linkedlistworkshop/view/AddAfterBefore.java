@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.File;
 
 public class AddAfterBefore {
@@ -104,26 +103,6 @@ public class AddAfterBefore {
                 }
             }
         });
-    }
-
-    public void setCurrentNodeId(int currentNodeId) {
-        this.currentNodeId = currentNodeId;
-    }
-
-    public int getMenuOption() {
-        return menuOption;
-    }
-
-    public void setMenuOption(int menuOption) {
-        this.menuOption = menuOption;
-    }
-
-    public ListManagement getListManagement() {
-        return listManagement;
-    }
-
-    public void setListManagement(ListManagement listManagement) {
-        this.listManagement = listManagement;
     }
 }
 

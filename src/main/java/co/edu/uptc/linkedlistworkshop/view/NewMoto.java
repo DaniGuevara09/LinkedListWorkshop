@@ -54,6 +54,7 @@ public class NewMoto {
     private boolean event1;
     private boolean event2;
     private boolean event3;
+    private boolean event4;
 
     public NewMoto() {
         listManagement = new ListManagement();
@@ -79,15 +80,16 @@ public class NewMoto {
         engineSizeLabel = new Label("Engine Size (c.c): ");
         priceLabel = new Label("Price (cop): ");
 
-        idText = new TextField();
-        modelText = new TextField();
-        engineSizeText = new TextField();
-        priceText = new TextField();
+        idText = new TextField("Enter the Id");
+        modelText = new TextField("Enter the Model");
+        engineSizeText = new TextField("Enter the Engine");
+        priceText = new TextField("Enter the Price");
 
         gridPane = new GridPane();
         event1 = false;
         event2 = false;
         event3 = false;
+        event4 = false;
         scene();
     }
 
@@ -172,6 +174,8 @@ public class NewMoto {
     }
 
     public void events() {
+        engineSizeText.setStyle("-fx-text-fill: #B52626;");
+        priceText.setStyle("-fx-text-fill: #B52626;");
 
         returnButton.setOnAction(event -> {
             Runner main = new Runner();
@@ -264,7 +268,30 @@ public class NewMoto {
     }
 
     public void addNewData(){
-        if (event1 && event2 && event3) {
+        if (idText.getText().isBlank()){
+            idText.setText("Enter the Id");
+            idText.setStyle("-fx-text-fill: #B52626;");
+            event4 = false;
+        } else if (modelText.getText().isBlank()){
+            modelText.setText("Enter the Model");
+            modelText.setStyle("-fx-text-fill: #B52626;");
+            event4 = false;
+        } else if (modelText.getText().equals("Enter the Model")) {
+            modelText.setStyle("-fx-text-fill: #B52626;");
+            event4 = false;
+        } else if (engineSizeText.getText().isBlank()){
+            engineSizeText.setText("Enter the Engine");
+            engineSizeText.setStyle("-fx-text-fill: #B52626;");
+            event4 = false;
+        } else if (priceText.getText().isBlank()){
+            priceText.setText("Enter the Price");
+            priceText.setStyle("-fx-text-fill: #B52626;");
+            event4 = false;
+        } else {
+            event4 = true;
+        }
+
+        if (event1 && event2 && event3 && event4) {
             int id = Integer.parseInt(idText.getText());
             String brand = brandComboBox.getValue();
             String model = modelText.getText();
@@ -323,18 +350,10 @@ public class NewMoto {
         this.prevScene = prevScene;
     }
 
-    public int getMenuOption() {
-        return menuOption;
-    }
-
     public void setMenuOptionAndId(int menuOption, int currentNodeId) {
         this.menuOption = menuOption;
         this.currentNodeId = currentNodeId;
         titleLabel();
-    }
-
-    public ListManagement getListManagement() {
-        return listManagement;
     }
 
     public void setListManagement(ListManagement listManagement) {

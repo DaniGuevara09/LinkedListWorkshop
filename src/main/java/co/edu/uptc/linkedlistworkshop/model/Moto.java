@@ -23,10 +23,6 @@ public class Moto {
         this.price = price;
     }
 
-    public Moto() {
-
-    }
-
     public int getId() {
         return id;
     }

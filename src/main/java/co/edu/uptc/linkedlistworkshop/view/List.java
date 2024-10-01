@@ -5,7 +5,6 @@ import co.edu.uptc.linkedlistworkshop.model.Moto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,7 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Comparator;
@@ -149,13 +147,5 @@ public class List {
 
     public void setPrevScene(Scene prevScene) {
         this.prevScene = prevScene;
-    }
-
-    public ListManagement getListManagement() {
-        return listManagement;
-    }
-
-    public void setListManagement(ListManagement listManagement) {
-        this.listManagement = listManagement;
     }
 }

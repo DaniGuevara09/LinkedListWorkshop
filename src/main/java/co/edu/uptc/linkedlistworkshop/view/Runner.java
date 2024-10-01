@@ -205,7 +205,6 @@ public class Runner extends Application {
     public void addAfterBefore(int op){
         AddAfterBefore add = new AddAfterBefore();
         add.scene(primaryStage, scene, op, listManagement);
-        //add.setListManagement(listManagement);
     }
 
     public void setPrimaryStage(Stage primaryStage) {
@@ -218,13 +217,5 @@ public class Runner extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
-
-    public ListManagement getManagement() {
-        return listManagement;
-    }
-
-    public void setManagement(ListManagement listManagement) {
-        this.listManagement = Runner.this.listManagement;
     }
 }
