@@ -13,6 +13,7 @@ import javafx.stage.StageStyle;
 import java.io.File;
 
 public class Total {
+
     private ListManagement listManagement;
     private Stage stage;
     private Scene scene;
@@ -21,6 +22,10 @@ public class Total {
     private Label label;
     private Button returnBtn;
 
+    /**
+     * Constructor for the Total class.
+     * Initializes the ListManagement instance and sets up the basic UI elements.
+     */
     public Total() {
         listManagement = new ListManagement();
         root = new VBox();
@@ -30,6 +35,12 @@ public class Total {
         scene = new Scene(root, 800, 150);
     }
 
+    /**
+     * Sets up and displays the scene for showing the total number of motorcycles.
+     *
+     * @param primaryStage The parent stage that will be blocked while this window is open.
+     * @param listManagement The ListManagement instance to retrieve the size of the list.
+     */
     public void scene(Stage primaryStage, ListManagement listManagement) {
         scene.getStylesheets()
                 .add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString());

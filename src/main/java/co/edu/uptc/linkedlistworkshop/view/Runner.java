@@ -12,10 +12,17 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Runner class is the main entry point for the Motorcycle Information Management application.
+ * It sets up the primary stage, UI components, and event handlers for the various options
+ * like adding, deleting, searching, and managing motorcycles in the list.
+ */
 public class Runner extends Application {
 
+    // ListManagement instance to handle operations on the motorcycle list
     private ListManagement listManagement;
 
+    // UI elements including the primary stage, root layout, and buttons for actions
     private Stage primaryStage;
     private Scene scene;
     private VBox root;
@@ -51,11 +58,17 @@ public class Runner extends Application {
     private static double screenWidth;
     private static double screenHeight;
 
+    /**
+     * Constructor for Runner class.
+     * Initializes the ListManagement instance, calculates screen dimensions,
+     * and sets up the main UI components such as labels, buttons, and layouts.
+     */
     public Runner() {
-        listManagement = new ListManagement();
+        listManagement = new ListManagement();  // Create a new ListManagement instance
         screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
         screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
 
+        // Initialize UI components
         primaryStage = new Stage();
         root = new VBox();
         grid = new GridPane();
@@ -64,6 +77,7 @@ public class Runner extends Application {
         title = new Label("Motorcycle information management");
         subtitle = new Label("Select an option");
 
+        // Initialize labels and buttons for each action
         addFirstLab = new Label("1. Add Motorcycle First");
         addLastLab = new Label("2. Add Motorcycle Last");
         afterToLab = new Label("3. Add Motorcycle After");
@@ -76,6 +90,7 @@ public class Runner extends Application {
         getFirstLab = new Label("10. Get First Motorcycle");
         getLastLab = new Label("11. Get Last Motorcycle");
 
+        // Buttons for each action
         addFirstBtn = new Button("Add First");
         addLastBtn = new Button("Add Last");
         afterToBtn = new Button("Add After");
@@ -90,12 +105,21 @@ public class Runner extends Application {
         exit = new Button("Exit");
     }
 
+    /**
+     * The main entry point for the JavaFX application.
+     * Sets up the event handlers for each button and the main layout of the application.
+     *
+     * @param stage The primary stage for this application.
+     * @throws IOException if an error occurs while loading resources like CSS.
+     */
     @Override
     public void start(Stage stage) throws IOException {
-        events();
+        events();  // Initialize event handlers for buttons
 
+        // Add external CSS stylesheet
         scene.getStylesheets().add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString());
-        // Column, row
+
+        // Add buttons and labels to the grid layout in specific positions
         grid.add(addFirstBtn, 1, 0);
         grid.add(addLastBtn, 1, 1);
         grid.add(afterToBtn, 1, 2);
@@ -108,6 +132,7 @@ public class Runner extends Application {
         grid.add(getFirstBtn, 1, 9);
         grid.add(getLastBtn, 1, 10);
 
+        // Add labels for each button's description
         grid.add(addFirstLab, 0, 0);
         grid.add(addLastLab, 0, 1);
         grid.add(afterToLab, 0, 2);
@@ -120,23 +145,30 @@ public class Runner extends Application {
         grid.add(getFirstLab, 0, 9);
         grid.add(getLastLab, 0, 10);
 
+        // Style UI elements
         title.setId("title");
         subtitle.setId("subtitle");
         root.setId("root");
 
         grid.setAlignment(Pos.CENTER);
-        grid.setHgap(100);
-        grid.setVgap(20);
+        grid.setHgap(100);  // Set horizontal gap between elements
+        grid.setVgap(20);  // Set vertical gap between elements
 
+        // Set layout for root and add all elements
         root.getChildren().addAll(title, subtitle, grid, exit);
         root.setAlignment(Pos.CENTER);
         root.setSpacing(55);
 
+        // Set up the primary stage
         primaryStage.setTitle("Motorcycle Information Management");
         primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.show();  // Display the stage
     }
 
+    /**
+     * Sets up event handlers for each button.
+     * Each button triggers a different window or action depending on the task.
+     */
     public void events() {
         addFirstBtn.setOnAction(e -> addMotoWindow(new NewMoto(), 1));
         addLastBtn.setOnAction(e -> addMotoWindow(new NewMoto(), 2));
@@ -177,22 +209,37 @@ public class Runner extends Application {
             total.scene(primaryStage, listManagement);
         });
 
+        // Exit button closes the application
         exit.setOnAction(event -> primaryStage.close());
     }
 
+    /**
+     * Opens a new window to add a motorcycle.
+     * @param newMoto The NewMoto instance representing the window for adding a new motorcycle.
+     * @param op The operation type (1 for add first, 2 for add last, etc.).
+     */
     public void addMotoWindow(NewMoto newMoto, int op) {
-        newMoto.setPrevScene(scene);
-        newMoto.setPrevStage(primaryStage);
-        primaryStage.setScene(newMoto.getScene());
-        newMoto.setMenuOptionAndId(op, -1);
-        newMoto.setListManagement(listManagement);
+        newMoto.setPrevScene(scene);  // Set the previous scene to return later
+        newMoto.setPrevStage(primaryStage);  // Set the previous stage
+        primaryStage.setScene(newMoto.getScene());  // Set the new scene for adding a motorcycle
+        newMoto.setMenuOptionAndId(op, -1);  // Configure the menu option
+        newMoto.setListManagement(listManagement);  // Set list management for data handling
     }
 
+    /**
+     * Overloaded method for adding a motorcycle with custom stage and scene parameters.
+     * @param newMoto The NewMoto instance for adding a new motorcycle.
+     * @param op The operation type.
+     * @param stage The stage to display.
+     * @param scene The scene to switch to.
+     * @param id The ID of the motorcycle.
+     * @param management The ListManagement instance for handling list operations.
+     */
     public void addMotoWindow(NewMoto newMoto, int op, Stage stage, Scene scene, int id, ListManagement management){
-        primaryStage.close();
-        this.scene = scene;
-        this.listManagement = management;
-        primaryStage = stage;
+        primaryStage.close();  // Close the current primary stage
+        this.scene = scene;  // Update the scene reference
+        this.listManagement = management;  // Update the list management reference
+        primaryStage = stage;  // Set the new stage
 
         newMoto.setPrevScene(scene);
         newMoto.setPrevStage(primaryStage);
@@ -202,10 +249,16 @@ public class Runner extends Application {
         System.out.println("Runner: " + listManagement);
     }
 
+    /**
+     * Opens the window for adding a motorcycle after or before an existing one.
+     * @param op Operation type (3 for after, 4 for before).
+     */
     public void addAfterBefore(int op){
         AddAfterBefore add = new AddAfterBefore();
         add.scene(primaryStage, scene, op, listManagement);
     }
+
+    // Setters for primary stage and scene
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -215,6 +268,10 @@ public class Runner extends Application {
         this.scene = scene;
     }
 
+    /**
+     * The main method to launch the JavaFX application.
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         launch();
     }

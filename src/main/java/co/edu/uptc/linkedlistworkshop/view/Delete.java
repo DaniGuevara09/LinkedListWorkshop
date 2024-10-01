@@ -16,6 +16,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.File;
 
+/**
+ * The Delete class manages the user interface for deleting a motorcycle from the linked list.
+ * It includes a search functionality and shows the details of the motorcycle before confirming the deletion.
+ */
 public class Delete {
 
     private ListManagement listManagement;
@@ -31,6 +35,10 @@ public class Delete {
     private Button delete;
     private Button searchBtn;
 
+    /**
+     * Constructor initializes the UI components, such as buttons, text fields, and labels for
+     * the delete window. It also initializes the ListManagement object to interact with the data.
+     */
     public Delete() {
         listManagement = new ListManagement();
         root = new VBox();
@@ -45,6 +53,12 @@ public class Delete {
         scene = new Scene(root, 500, 555);
     }
 
+    /**
+     * Displays the delete window, allowing the user to search for a motorcycle by ID
+     * and delete it after confirmation. The window is configured as a modal dialog.
+     * @param primaryStage the parent stage that will be blocked while this window is open.
+     * @param listManagement the ListManagement object to manage the list of motorcycles.
+     */
     public void scene(Stage primaryStage, ListManagement listManagement) {
         this.listManagement = listManagement;
         scene.getStylesheets()
@@ -55,7 +69,7 @@ public class Delete {
         events();
         moto();
 
-        // Up, right, down, left
+        // Adjust margins for components
         VBox.setMargin(textField, new Insets(10, 0, 20, 0));
         VBox.setMargin(label, new Insets(30, 0, 50, 25));
         HBox.setMargin(returnBtn, new Insets(0, 25, 0, 25));
@@ -65,17 +79,24 @@ public class Delete {
 
         root.getChildren().addAll(textField, separator, label, hBoxBtns);
         scene.setFill(Color.TRANSPARENT);
-        stage.initStyle(StageStyle.TRANSPARENT); // Without name and exit button
-        stage.initModality(Modality.WINDOW_MODAL); // Block the first window
+        stage.initStyle(StageStyle.TRANSPARENT); // Hide window title and buttons
+        stage.initModality(Modality.WINDOW_MODAL); // Block interaction with the parent window
         stage.initOwner(primaryStage);
         stage.setScene(scene);
         stage.showAndWait();
     }
 
+    /**
+     * Sets a default label template with placeholders for displaying motorcycle information.
+     */
     public void moto(){
         label = new Label("- ID: " + "\n\n- Brand: " + "\n\n- Model: " + "\n\n- Color: " + "\n\n- Year: " + "\n\n- EngineSize: " + " c.c" + "\n\n- Price: $");
     }
 
+    /**
+     * Defines the event listeners for the text field and buttons. When a valid ID is entered,
+     * the motorcycle's information is displayed, and the user can choose to delete it.
+     */
     public void events(){
         returnBtn.setOnAction(event -> stage.close());
 
@@ -112,5 +133,3 @@ public class Delete {
         });
     }
 }
-
-

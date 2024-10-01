@@ -12,6 +12,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.File;
 
+/**
+ * The Confirmation class represents a simple confirmation dialog window in the user interface.
+ * It displays a message and provides a button to return to the previous window.
+ */
 public class Confirmation {
     private Stage stage;
     private Scene scene;
@@ -20,6 +24,10 @@ public class Confirmation {
     private Label label;
     private Button returnBtn;
 
+    /**
+     * Constructor that initializes the window components including the label, return button,
+     * and the layout for displaying the confirmation message.
+     */
     public Confirmation() {
         root = new VBox();
         stage = new Stage();
@@ -28,22 +36,31 @@ public class Confirmation {
         scene = new Scene(root, 800, 150);
     }
 
+    /**
+     * Displays the confirmation window with a specified message. The window is styled with an external
+     * CSS file and is configured as a modal that blocks interaction with the parent window until closed.
+     * @param primaryStage the owner stage that will be blocked while this window is active.
+     * @param message the confirmation message to display in the dialog.
+     */
     public void scene(Stage primaryStage, String message) {
-        label.setText(message);
+        label.setText(message); // Set the message to be displayed
         scene.getStylesheets()
-                .add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString());
+                .add(new File("src/main/java/co/edu/uptc/linkedlistworkshop/view/Style.css").toURI().toString()); // Add styles
         root.setId("rootSearch");
 
-        returnBtn.setOnAction(event -> stage.close());
+        returnBtn.setOnAction(event -> stage.close()); // Close the window when the button is pressed
 
+        // Configure the layout settings
         root.setSpacing(40);
         root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(label, returnBtn);
+
+        // Configure the stage settings
         scene.setFill(Color.TRANSPARENT);
-        stage.initStyle(StageStyle.TRANSPARENT); // Without name and exit button
-        stage.initModality(Modality.WINDOW_MODAL); // Block the first window
-        stage.initOwner(primaryStage);
+        stage.initStyle(StageStyle.TRANSPARENT); // Remove window title and exit buttons
+        stage.initModality(Modality.WINDOW_MODAL); // Block the parent window until this window is closed
+        stage.initOwner(primaryStage); // Set the parent window
         stage.setScene(scene);
-        stage.showAndWait();
+        stage.showAndWait(); // Show the window and wait until it is closed
     }
 }

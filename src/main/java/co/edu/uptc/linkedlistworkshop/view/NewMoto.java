@@ -56,6 +56,11 @@ public class NewMoto {
     private boolean event3;
     private boolean event4;
 
+    /**
+     * Constructor for the NewMoto class.
+     * Initializes ListManagement, sets up the main layout and UI components,
+     * and creates a scene for adding a new motorcycle.
+     */
     public NewMoto() {
         listManagement = new ListManagement();
         root = new BorderPane();
@@ -93,7 +98,11 @@ public class NewMoto {
         scene();
     }
 
-    public void scene(){
+    /**
+     * Configures the layout of the scene, populates combo boxes,
+     * sets event listeners for input fields, and applies styles from a CSS file.
+     */
+    public void scene() {
         combo();
         events();
         scene.getStylesheets()
@@ -135,7 +144,10 @@ public class NewMoto {
         root.setBottom(buttons);
     }
 
-    public void combo(){
+    /**
+     * Populates the brand, color, and year combo boxes with default values.
+     */
+    public void combo() {
         // Brand
         ArrayList<String> brand = new ArrayList<>();
         brand.add("BMW");
@@ -173,6 +185,10 @@ public class NewMoto {
         yearComboBox.setValue(2024);
     }
 
+    /**
+     * Sets up event listeners for buttons and input fields,
+     * validating user input when the fields lose focus.
+     */
     public void events() {
         engineSizeText.setStyle("-fx-text-fill: #B52626;");
         priceText.setStyle("-fx-text-fill: #B52626;");
@@ -197,7 +213,7 @@ public class NewMoto {
                     idText.setText("Enter a numeric value");
                     idText.setStyle("-fx-text-fill: #B52626;");
                     event1 = false;
-                } else if (!listManagement.idValidation(idInt)){
+                } else if (!listManagement.idValidation(idInt)) {
                     idText.setText("Enter natural numbers");
                     idText.setStyle("-fx-text-fill: #B52626;");
                     event1 = false;
@@ -222,7 +238,7 @@ public class NewMoto {
                     engineSizeText.setText("Enter a numeric value");
                     engineSizeText.setStyle("-fx-text-fill: #B52626;");
                     event2 = false;
-                } else if (!listManagement.engineValidation(engineInt)){
+                } else if (!listManagement.engineValidation(engineInt)) {
                     engineSizeText.setText("Min: 50, Max: 1200");
                     engineSizeText.setStyle("-fx-text-fill: #B52626;");
                     event2 = false;
@@ -243,11 +259,11 @@ public class NewMoto {
                     priceText.setText("Enter a numeric value");
                     priceText.setStyle("-fx-text-fill: #B52626;");
                     event3 = false;
-                } else if (!listManagement.priceValidation(priceInt)){
+                } else if (!listManagement.priceValidation(priceInt)) {
                     priceText.setText("Min: 2000000, Max: 160000000");
                     priceText.setStyle("-fx-text-fill: #B52626;");
                     event3 = false;
-                }else {
+                } else {
                     priceText.setStyle("-fx-text-fill: white;");
                     event3 = true;
                 }
@@ -256,9 +272,12 @@ public class NewMoto {
         });
     }
 
-    public void titleLabel(){
+    /**
+     * Sets the title of the scene based on the selected menu option.
+     */
+    public void titleLabel() {
         String text = "Add a New Motorcycle";
-        switch (menuOption){
+        switch (menuOption) {
             case 1 -> title.setText(text + " at the Beginning");
             case 2 -> title.setText(text + " at the End");
             case 3 -> title.setText(text + " After to No. " + currentNodeId);
@@ -267,23 +286,35 @@ public class NewMoto {
         }
     }
 
-    public void addNewData(){
-        if (idText.getText().isBlank()){
+
+    /**
+     * Validates the input data and, if valid, adds a new motorcycle node to the list
+     * based on the specified menu option.
+     * <p>
+     * The method performs the following validation steps:
+     * - Ensures that the 'id', 'model', 'engine size', and 'price' fields are not blank or invalid.
+     * - Checks if the 'id' is unique and if the input values are within acceptable ranges.
+     * <p>
+     * If all validation passes, a new motorcycle node is added using the appropriate
+     * method from the ListManagement class, depending on the selected menu option.
+     */
+    public void addNewData() {
+        if (idText.getText().isBlank()) {
             idText.setText("Enter the Id");
             idText.setStyle("-fx-text-fill: #B52626;");
             event4 = false;
-        } else if (modelText.getText().isBlank()){
+        } else if (modelText.getText().isBlank()) {
             modelText.setText("Enter the Model");
             modelText.setStyle("-fx-text-fill: #B52626;");
             event4 = false;
         } else if (modelText.getText().equals("Enter the Model")) {
             modelText.setStyle("-fx-text-fill: #B52626;");
             event4 = false;
-        } else if (engineSizeText.getText().isBlank()){
+        } else if (engineSizeText.getText().isBlank()) {
             engineSizeText.setText("Enter the Engine");
             engineSizeText.setStyle("-fx-text-fill: #B52626;");
             event4 = false;
-        } else if (priceText.getText().isBlank()){
+        } else if (priceText.getText().isBlank()) {
             priceText.setText("Enter the Price");
             priceText.setStyle("-fx-text-fill: #B52626;");
             event4 = false;
@@ -291,6 +322,7 @@ public class NewMoto {
             event4 = true;
         }
 
+        // If all events (validations) pass, create and add a new motorcycle node
         if (event1 && event2 && event3 && event4) {
             int id = Integer.parseInt(idText.getText());
             String brand = brandComboBox.getValue();
@@ -300,7 +332,7 @@ public class NewMoto {
             int engineSize = Integer.parseInt(engineSizeText.getText());
             int price = Integer.parseInt(priceText.getText());
 
-            switch (menuOption){
+            switch (menuOption) {
                 case 1 -> addButton.setOnAction(event -> {
                     listManagement.addNodeFirst(id, brand, model, color, year, engineSize, price);
                     message();
@@ -325,7 +357,13 @@ public class NewMoto {
         }
     }
 
-    public void message(){
+    /**
+     * Displays a confirmation message once the new motorcycle has been successfully added.
+     * <p>
+     * This method creates a new confirmation window using the Confirmation class, sets up
+     * the previous stage and scene, and restarts the application by returning to the main scene.
+     */
+    public void message() {
         Confirmation config = new Confirmation();
         config.scene(prevStage, "Added Successfully");
         Runner main = new Runner();
@@ -338,24 +376,51 @@ public class NewMoto {
         }
     }
 
+    /**
+     * Returns the current Scene object used in the 'NewMoto' window.
+     *
+     * @return The Scene instance.
+     */
     public Scene getScene() {
         return scene;
     }
 
+    /**
+     * Sets the previous stage from where the user navigated.
+     *
+     * @param prevStage The previous Stage to be used for navigating back.
+     */
     public void setPrevStage(Stage prevStage) {
         this.prevStage = prevStage;
     }
 
+    /**
+     * Sets the previous scene that was displayed before the current window.
+     *
+     * @param prevScene The Scene object to restore when returning to the previous window.
+     */
     public void setPrevScene(Scene prevScene) {
         this.prevScene = prevScene;
     }
 
+    /**
+     * Configures the menu option and current node ID, which determine
+     * how a new motorcycle will be added (e.g., at the beginning, end, before, or after another node).
+     *
+     * @param menuOption    The menu option selected by the user.
+     * @param currentNodeId The ID of the current node to which the new node will be added relative to.
+     */
     public void setMenuOptionAndId(int menuOption, int currentNodeId) {
         this.menuOption = menuOption;
         this.currentNodeId = currentNodeId;
         titleLabel();
     }
 
+    /**
+     * Sets the ListManagement instance used for managing the linked list of motorcycles.
+     *
+     * @param listManagement The ListManagement instance to be set.
+     */
     public void setListManagement(ListManagement listManagement) {
         this.listManagement = listManagement;
     }

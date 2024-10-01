@@ -17,6 +17,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Comparator;
 
+/**
+ * The List class provides a graphical interface for displaying a list of motorcycles.
+ * It allows the user to view the details of each motorcycle and sort them by ID.
+ */
 public class List {
     private ListManagement listManagement;
     private Stage prevStage;
@@ -36,6 +40,10 @@ public class List {
     private static double screenWidth;
     private static double screenHeight;
 
+    /**
+     * Constructor initializes the UI components for displaying the motorcycle list.
+     * It sets up the scene with default dimensions based on the primary screen size.
+     */
     public List() {
         listManagement = new ListManagement();
         title = new Label("Motorcycle List");
@@ -51,6 +59,10 @@ public class List {
         scene = new Scene(root, screenWidth, screenHeight);
     }
 
+    /**
+     * Sets up the scene with the motorcycle list and sorting options.
+     * @param listManagement the ListManagement object to manage the motorcycle list.
+     */
     public void scene(ListManagement listManagement) {
         this.listManagement = listManagement;
         scene.getStylesheets()
@@ -81,7 +93,10 @@ public class List {
         BorderPane.setMargin(returnBtn, new Insets(0, 0, 30, 30));
     }
 
-    public void table(){
+    /**
+     * Initializes the table columns for displaying motorcycle details.
+     */
+    public void table() {
         TableColumn<Moto, Integer> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
@@ -109,6 +124,9 @@ public class List {
         loadDataIntoTable();
     }
 
+    /**
+     * Loads the motorcycle data into the table and sets up the sorting event for the ComboBox.
+     */
     private void loadDataIntoTable() {
         ObservableList<Moto> motoList = FXCollections.observableArrayList(listManagement.getLinkedList(true));
         tableView.setItems(motoList);
@@ -124,6 +142,9 @@ public class List {
         });
     }
 
+    /**
+     * Sets up the event handling for the return button to navigate back to the previous scene.
+     */
     public void events() {
         returnBtn.setOnAction(event -> {
             Runner main = new Runner();
@@ -137,14 +158,26 @@ public class List {
         });
     }
 
+    /**
+     * Gets the current scene for this List view.
+     * @return the scene of the List view.
+     */
     public Scene getScene() {
         return scene;
     }
 
+    /**
+     * Sets the previous stage to return to when the return button is pressed.
+     * @param prevStage the previous Stage to set.
+     */
     public void setPrevStage(Stage prevStage) {
         this.prevStage = prevStage;
     }
 
+    /**
+     * Sets the previous scene to return to when the return button is pressed.
+     * @param prevScene the previous Scene to set.
+     */
     public void setPrevScene(Scene prevScene) {
         this.prevScene = prevScene;
     }

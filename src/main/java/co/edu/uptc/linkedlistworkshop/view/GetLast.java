@@ -14,8 +14,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.File;
 
+/**
+ * The GetLast class displays the details of the last motorcycle in the linked list.
+ * It provides a user interface to view the information of the last node in the list.
+ */
 public class GetLast {
-
     private ListManagement listManagement;
     private Stage stage;
     private Scene scene;
@@ -26,6 +29,10 @@ public class GetLast {
     private Label label;
     private Button returnBtn;
 
+    /**
+     * Constructor initializes the UI components for displaying the last motorcycle
+     * and prepares the scene with styling and layout.
+     */
     public GetLast() {
         listManagement = new ListManagement();
         root = new VBox();
@@ -37,6 +44,12 @@ public class GetLast {
         scene = new Scene(root, 500, 555);
     }
 
+    /**
+     * Displays the window that shows the details of the last motorcycle in the linked list.
+     * The window is configured as a modal dialog.
+     * @param primaryStage the parent stage that will be blocked while this window is open.
+     * @param listManagement the ListManagement object to interact with the motorcycle list.
+     */
     public void scene(Stage primaryStage, ListManagement listManagement) {
         this.listManagement = listManagement;
         scene.getStylesheets()
@@ -48,27 +61,32 @@ public class GetLast {
 
         title.setPrefWidth(200);
 
+        // Fetch the last motorcycle and display its details
         Moto moto = listManagement.getLast();
         label.setText("- ID: " + moto.getId() + "\n\n- Brand: " + moto.getBrand() + "\n\n- Model: " + moto.getModel() +
                 "\n\n- Color: " + moto.getColor() + "\n\n- Year: " + moto.getYear() + "\n\n- EngineSize: " +
                 moto.getEngineSize() + " c.c" + "\n\n- Price: $" + moto.getPrice());
 
-        // Up, right, down, left
+        // Adjust margins for components
         VBox.setMargin(title, new Insets(10, 0, 20, 150));
         VBox.setMargin(label, new Insets(30, 0, 50, 25));
         VBox.setMargin(returnBtn, new Insets(0, 0, 0, 150));
 
         root.getChildren().addAll(title, separator, label, returnBtn);
         scene.setFill(Color.TRANSPARENT);
-        stage.initStyle(StageStyle.TRANSPARENT); // Without name and exit button
-        stage.initModality(Modality.WINDOW_MODAL); // Block the first window
+        stage.initStyle(StageStyle.TRANSPARENT); // Hide window title and buttons
+        stage.initModality(Modality.WINDOW_MODAL); // Block interaction with the parent window
         stage.initOwner(primaryStage);
         stage.setScene(scene);
         stage.showAndWait();
     }
 
-    public void moto(){
-        label = new Label("- ID: " + "\n\n- Brand: " + "\n\n- Model: " + "\n\n- Color: " + "\n\n- Year: " + "\n\n- EngineSize: " + " c.c" + "\n\n- Price: $");
+    /**
+     * Initializes a default label template with placeholders for the motorcycle details.
+     */
+    public void moto() {
+        label = new Label(
+                "- ID: " + "\n\n- Brand: " + "\n\n- Model: " + "\n\n- Color: " + "\n\n- Year: " + "\n\n- EngineSize: " +
+                        " c.c" + "\n\n- Price: $");
     }
 }
-
